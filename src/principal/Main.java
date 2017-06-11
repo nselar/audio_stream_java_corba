@@ -5,12 +5,8 @@
  */
 package principal;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
@@ -25,74 +21,56 @@ import javax.sound.sampled.SourceDataLine;
  */
 public class Main {
 
-    static int pedazo = 100000;
     static boolean estado = true;
-    static int offset = 0;
     static AudioInputStream ais;
+    static AudioStream audiostream;
 
     public static void main(String[] args) {
+        List<String> lista = new ArrayList();
+        lista.add("./naruto_1.wav");
+        lista.add("./uptown.wav");
+        audiostream = new AudioStream(lista);
         for (int i = 0; i < 1; i++) {
             reproducir();
         }
     }
 
-    public static void reproducir() {
+    public static Integer reproducir() {
 
-        InputStream is = null;
-        float rate = 94100.0f;
+//        InputStream is = null;
+        float rate = 90100.0f;
         AudioFormat format = new AudioFormat(rate, 16, 1, true, false);
-        byte[] receiveData = new byte[4096];
+//        byte[] receiveData = new byte[4096];
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+        
+        if (!AudioSystem.isLineSupported(info)) {
+            System.out.println("Line matching " + info + " not supported.");
+            return null;
+        }
+        
         try (SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info)) {
             line.open(format);
             line.start();
 
             while (estado) {
-//            serverSocket.receive(receivePacket);
-//            ais = new AudioInputStream(baiss, format, receivePacket.getLength());
-
-                byte[] flujoBytes = obtenerAudio();
+                byte[] flujoBytes = audiostream.obtenerAudio();
                 if (flujoBytes != null) {
+                    if(flujoBytes.length == 0){
+                        Thread.sleep(700);
+                    }
                     line.write(flujoBytes, 0, flujoBytes.length);
                 } else {
                     break;
                 }
             }
-
             line.drain();
             line.close();
         } catch (LineUnavailableException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return 0;
     }
 
-    public static byte[] obtenerAudio() {
-        try {
-//            InputStream is = null;
-            File fl = new File("./naruto_1.wav");
-//            is = new FileInputStream(fl);
-            byte[] flujoBytes = Files.readAllBytes(fl.toPath());
-            int tamAudio = flujoBytes.length;
-//            if()
-            if (offset+pedazo > tamAudio) {
-                pedazo = tamAudio - offset;
-            }
-            byte[] otroFlujo = new byte[pedazo];
-            for (int i = 0; i < pedazo; i++) {
-                otroFlujo[i] = flujoBytes[i + offset];
-            }
-            offset += pedazo;
-            System.out.println("tam:" + otroFlujo.length);
-            return otroFlujo;
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-        return null;
-    }
 }
