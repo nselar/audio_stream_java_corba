@@ -5,14 +5,14 @@
  */
 package cliente;
 
-import local.AudioStream;
+import local.MiAudioStream;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
-import sop_corba.AudioStreamInt;
-import sop_corba.AudioStreamIntHelper;
+import sop_corba.AudioStream;
+import sop_corba.AudioStreamHelper;
 
 /**
  *
@@ -22,7 +22,7 @@ public class Cliente {
 
     public static void main(String[] args) throws InvalidName, NotFound, CannotProceed, org.omg.CosNaming.NamingContextPackage.InvalidName {
         if (args.length < 1) {
-            args = new String[]{"-ORBInitialPort", "1050", "-ORBInitialHost", "127.0.0.1"};
+            args = new String[]{"-ORBInitialPort", "1051", "-ORBInitialHost", "192.168.0.24"};
         }
         org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
         // Obtener una ref del NS
@@ -30,18 +30,18 @@ public class Cliente {
         NamingContextExt ns = NamingContextExtHelper.narrow(obj_NS);
         // Obtener una ref del Objeto remoto a traves del NS
         String name = "AudioStream";
-        AudioStreamInt counter = AudioStreamIntHelper.narrow(ns.resolve_str(name));
+        AudioStream counter = AudioStreamHelper.narrow(ns.resolve_str(name));
         counter.obtenerAudio();
-        
-        AudioStream asImpl = new AudioStream(){
+
+        MiAudioStream asImpl = new MiAudioStream() {
 
             @Override
             public byte[] obtenerAudio() {
                 System.out.println("abriendo delegado");
                 return counter.obtenerAudio();
             }
-            
+
         };
-        AudioStream.reproducir(asImpl);
+        MiAudioStream.reproducir(asImpl);
     }
 }

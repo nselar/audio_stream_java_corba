@@ -6,16 +6,16 @@
 
 package servidor;
 
-import local.AudioStream;
-import sop_corba.AudioStreamIntPOA;
+import local.MiAudioStream;
+import sop_corba.AudioStreamPOA;
 /**
  *
  * @author debian
  */
-public class AudioStreamImpl extends AudioStreamIntPOA {
-    AudioStream audioStream;
+public class AudioStreamImpl extends AudioStreamPOA {
+    MiAudioStream audioStream;
     
-    public AudioStreamImpl(AudioStream audioStream) {
+    public AudioStreamImpl(MiAudioStream audioStream) {
         this.audioStream = audioStream;
     }
 

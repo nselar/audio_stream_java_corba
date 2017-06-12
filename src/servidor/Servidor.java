@@ -7,7 +7,7 @@ package servidor;
 
 import java.util.ArrayList;
 import java.util.List;
-import local.AudioStream;
+import local.MiAudioStream;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NameComponent;
@@ -20,9 +20,8 @@ import org.omg.PortableServer.POAHelper;
 import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
-import sop_corba.AudioStreamInt;
-import sop_corba.AudioStreamIntHelper;
-import sop_corba.AudioStreamIntPOATie;
+import sop_corba.AudioStream;
+import sop_corba.AudioStreamHelper;
 
 /**
  *
@@ -33,7 +32,7 @@ public class Servidor {
     public static void main(String[] args) throws InvalidName, ServantNotActive, WrongPolicy, org.omg.CosNaming.NamingContextPackage.InvalidName, CannotProceed, NotFound, AdapterInactive {
         
         if(args.length<1){
-            args = new String[]{"-ORBInitialPort","1050","-ORBInitialHost","127.0.0.1"};
+            args = new String[]{"-ORBInitialPort","1051","-ORBInitialHost","192.168.0.24"};
         }
         
         // inicializa el ORB
@@ -49,14 +48,15 @@ public class Servidor {
         POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
         rootPOA.the_POAManager().activate();
         // Crea el objeto servidor delegado
-        AudioStreamImpl asImpl = new AudioStreamImpl(new AudioStream(lista));
+        AudioStreamImpl asImpl = new AudioStreamImpl(new MiAudioStream(lista));
         // Crear el objeto POATie que usa el delegado
-//        AudioStreamIntPOATie asPOATie = new AudioStreamIntPOATie(asImpl);
+//        AudioStreamPOATie asPOATie = new AudioStreamPOATie(asImpl);
 //        auPOATie._this(orb);
+        
         
         // Obtener una ref CORBA del objeto
         org.omg.CORBA.Object ref = rootPOA.servant_to_reference(asImpl);
-        AudioStreamInt href = AudioStreamIntHelper.narrow(ref);
+        AudioStream href = AudioStreamHelper.narrow(ref);
         // Obtener una ref CORBA para el servicio de nombrado
         org.omg.CORBA.Object refNS = orb.resolve_initial_references("NameService");
         //Usar NamingContextExt que es parte del interoperable Naming Service NS

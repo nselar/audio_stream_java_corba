@@ -22,7 +22,7 @@ import static local.Main.estado;
  *
  * @author debian
  */
-public class AudioStream {
+public class MiAudioStream {
 
     int pedazo = 100000;
     List<String> listaUbicaciones;
@@ -31,13 +31,13 @@ public class AudioStream {
     int index_audio;
     int offset = 0;
 
-    public AudioStream(List<String> listaUbicaciones) {
+    public MiAudioStream(List<String> listaUbicaciones) {
         this.listaUbicaciones = listaUbicaciones;
         actual = null;
         index_audio = 0;
     }
     
-    public AudioStream() {
+    public MiAudioStream() {
         this.listaUbicaciones = null;
         actual = null;
         index_audio = 0;
@@ -65,7 +65,7 @@ public class AudioStream {
             flujoBytes = Files.readAllBytes(fl.toPath());
         } catch (IOException ex) {
             System.out.println("ubicacion incorrecta!: "+actual);
-            Logger.getLogger(AudioStream.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MiAudioStream.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -84,7 +84,7 @@ public class AudioStream {
     }
     
     // STATIC
-    public static Integer reproducir(AudioStream audiostream) {
+    public static Integer reproducir(MiAudioStream audiostream) {
 
 //        InputStream is = null;
         float rate = 90100.0f;
