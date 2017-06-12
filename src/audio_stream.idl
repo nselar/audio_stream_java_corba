@@ -1,0 +1,6 @@
+module sop_corba{
+    typedef sequence<octet>  Buffer;
+    interface AudioStreamInt {
+        Buffer obtenerAudio();
+    };
+};

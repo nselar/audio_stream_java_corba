@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package principal;
+package local;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +11,12 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
+import static local.Main.estado;
 
 /**
  *
@@ -30,7 +36,13 @@ public class AudioStream {
         actual = null;
         index_audio = 0;
     }
-
+    
+    public AudioStream() {
+        this.listaUbicaciones = null;
+        actual = null;
+        index_audio = 0;
+    }
+    
     public byte[] obtenerAudio() {
         if (actual == null || offset >= flujoBytes.length) {
             if (index_audio < listaUbicaciones.size()) {
@@ -70,5 +82,43 @@ public class AudioStream {
         System.out.println("tam:" + otroFlujo.length);
         return otroFlujo;
     }
+    
+    // STATIC
+    public static Integer reproducir(AudioStream audiostream) {
 
+//        InputStream is = null;
+        float rate = 90100.0f;
+        AudioFormat format = new AudioFormat(rate, 16, 1, true, false);
+//        byte[] receiveData = new byte[4096];
+        DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+        
+        if (!AudioSystem.isLineSupported(info)) {
+            System.out.println("Line matching " + info + " not supported.");
+            return null;
+        }
+        
+        try (SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info)) {
+            line.open(format);
+            line.start();
+
+            while (estado) {
+                byte[] flujoBytes = audiostream.obtenerAudio();
+                if (flujoBytes != null) {
+                    if(flujoBytes.length == 0){
+                        Thread.sleep(700);
+                    }
+                    line.write(flujoBytes, 0, flujoBytes.length);
+                } else {
+                    break;
+                }
+            }
+            line.drain();
+            line.close();
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
 }
