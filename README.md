@@ -1,19 +1,18 @@
 # CORBA Audio Streaming
 
-A simple audio streaming system using Java and CORBA.
+Implementación sencilla de un sistema de streaming de audio usando CORBA y Java.
 
-### Prerequisites
+### Requisitos previos
 
-Install the JDK 8u351 or earlier to build the files of this project and download an audio file, it is recommended that the audio be .wav extension.
-See https://www.oracle.com/es/java/technologies/javase/javase8u211-later-archive-downloads.html for download this JDK, and the how-to guide of IDL compilation on Oracle's website https://docs.oracle.com/javase/7/docs/technotes/guides/idl/jidlExample.html.
-Feel free to make a pull request, but tell me what and why are you going to change. Thanks in advance
+Instale el JDK 8u351 o anterior para compilar los archivos de este proyecto y descargue un archivo de audio, se recomienda que el audio sea de extensión .wav.
+Ver https://www.oracle.com/es/java/technologies/javase/javase8u211-later-archive-downloads.html para descargar este JDK, y la guía de cómo compilar IDL en el sitio web de Oracle https://docs.oracle.com/javase/7/docs/technotes/guides/idl/jidlExample.html.
 
-### Setup
+### Configuración
 
-1. Run in a new terminal `orbd -ORBInitialPort 1050`
-2. Move to the director containing `audio_stream.idl` and run `idlj -fall audio_stream.idl`
-3. Compile everything on the director, example: `javac local/*.java servidor/*.java cliente/*.java sop_corba/*.java -Xlint`
-4. Build and run in new terminal`Servidor/servidor` in VS Code with arugments `-ORBInitialPort 1050 -ORBInitialHost localhost` example: `java servidor/Servidor -ORBInitialHost localhost -ORBInitialPort 1050`
-5. Write the audio route with the extension, example: `./sound.wav`
-6. Build and run any number of `Client` (each one in a new terminal, obviously) in VS Code with arguments `-ORBInitialPort 1050 -ORBInitialHost localhost` example: `java cliente/Cliente -ORBInitialHost localhost -ORBInitialPort 1050`
-7. if everything has gone well it should start playing the chosen music showing name and current and total duration of this one
+1. Ejecuta en un nuevo terminal `orbd -ORBInitialPort 1050`.
+2. Desplázate al director que contiene `audio_stream.idl` y ejecuta `idlj -fall audio_stream.idl`.
+3. Compila todos los .java que hay en el directorio src, ejemplo: `javac local/*.java servidor/*.java cliente/*.java sop_corba/*.java -Xlint`.
+4. Ejecuta en un nuevo terminal el paquete `Servidor/servidor` en VS Code con los arugmentos `-ORBInitialPort 1050 -ORBInitialHost localhost` ejemplo: `java servidor/Servidor -ORBInitialHost localhost -ORBInitialPort 1050`.
+5. Escribe la ruta de audio con la extensión, ejemplo: `./sound.wav`.
+6. Ejecuta cuantos clientes desees con el paquete `Cliente/cliente` (cada uno en un nuevo terminal, obviamente) en VS Code con los argumentos `-ORBInitialPort 1050 -ORBInitialHost localhost` ejemplo: `java cliente/Cliente -ORBInitialHost localhost -ORBInitialPort 1050`
+7. Si todo ha ido bien debería empezar a reproducir la música elegida mostrando nombre y duración actual y total de esta.
