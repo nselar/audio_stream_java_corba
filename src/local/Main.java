@@ -7,6 +7,7 @@ package local;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * @author debian
@@ -19,14 +20,28 @@ public class Main {
 
     public static void main(String[] args) {
         List<String> lista = new ArrayList();
-        lista.add("./naruto_1.wav");
-        lista.add("./naruto_1.wav");
-        lista.add("./uptown.wav");
+        lista.add("./el_alfa1.wav");
+        lista.add("./los_aparatos.wav");
         audiostream = new MiAudioStream(lista);
-        for (int i = 0; i < 1; i++) {
-            MiAudioStream.reproducir(audiostream);
+        //preguntar al usuario si quiere reproducir la lista de canciones y mostrar la lista
+        System.out.println("Reproduciendo lista de canciones");
+        System.out.println("Lista de canciones:");
+        for (int i = 0; i < lista.size(); i++) {
+            System.out.println(lista.get(i));
         }
+        System.out.println("¿Desea reproducir la lista de canciones? (s/n)");
+        Scanner sc = new Scanner(System.in);
+        String respuesta = sc.nextLine();
+
+        if(respuesta.equals("s")){
+            for (int i = 0; i < 1; i++) {
+                MiAudioStream.reproducir(audiostream);
+            }
+        }else{
+            return;
+
+        
     }
 
-
+    }
 }

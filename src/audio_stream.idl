@@ -2,5 +2,11 @@ module sop_corba{
     typedef sequence<octet>  Buffer;
     interface AudioStream {
         Buffer obtenerAudio();
+        //Obtener duracion actual del audio
+        long obtenerDuracion();
+        //Obtener duracion total del audio
+        long obtenerDuracionTotal();
+        //Obtener el nombre del audio
+        string obtenerNombre();
     };
 };

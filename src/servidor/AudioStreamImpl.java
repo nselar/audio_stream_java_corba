@@ -24,5 +24,23 @@ public class AudioStreamImpl extends AudioStreamPOA {
         System.out.println("obtenerAudio()");
         return audioStream.obtenerAudio();
     }
+
+    @Override
+    public String obtenerNombre() {
+        System.out.println("obtenerNombre()");
+        return audioStream.obtenerNombre();
+    }
+
+    @Override
+    public int obtenerDuracionTotal() {
+        System.out.println("obtenerDuracionTotal()");
+        return audioStream.obtenerDuracionTotal();
+    }
+
+    @Override
+    public int obtenerDuracion() {
+        System.out.println("obtenerDuracion()");
+        return audioStream.obtenerDuracion();
+    }
     
 }

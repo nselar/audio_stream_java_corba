@@ -37,7 +37,11 @@ public class Cliente {
 
             @Override
             public byte[] obtenerAudio() {
-                System.out.println("abriendo delegado");
+                //Show the actual time of the audio fixed on the terminal
+                System.out.println("Tiempo: " + counter.obtenerDuracion());
+                System.out.println("Tiempo total del audio: " + counter.obtenerDuracionTotal());
+                //Mostrar el nombre del audio
+                System.out.println("Nombre: " + counter.obtenerNombre());
                 return counter.obtenerAudio();
             }
 

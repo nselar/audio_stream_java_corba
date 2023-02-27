@@ -55,6 +55,37 @@ public class MiAudioStream {
         return arrayb;
     }
 
+    //metodo para obtener la duracion actual de la cancion
+    public int obtenerDuracion() {
+        int duracion = 0;
+        for (int i = 0; i < index_audio; i++) {
+            File fl = null;
+            fl = new File(listaUbicaciones.get(i));
+            duracion += (int) fl.length() / pedazo;
+        }
+        duracion += offset / pedazo;
+        return duracion;
+    }
+
+    //metodo para obtener el nombre de la cancion
+    public String obtenerNombre() {
+        File fl = null;
+        fl = new File(actual);
+        String nombre = fl.getName();
+        return nombre;
+    }
+
+    //metodo para obtener la duracion total de la cancion
+    public int obtenerDuracionTotal() {
+        int duracionTotal = 0;
+        for (String ubicacion : listaUbicaciones) {
+            File fl = null;
+            fl = new File(ubicacion);
+            duracionTotal += (int) fl.length() / pedazo;
+        }
+        return duracionTotal;
+    }
+
     private void leerSiguienteCancion() {
 
         try {
@@ -87,8 +118,8 @@ public class MiAudioStream {
     public static Integer reproducir(MiAudioStream audiostream) {
 
 //        InputStream is = null;
-        float rate = 90100.0f;
-        AudioFormat format = new AudioFormat(rate, 16, 1, true, false);
+        float rate = 44100.0f;
+        AudioFormat format = new AudioFormat(rate, 16, 2, true, false);
 //        byte[] receiveData = new byte[4096];
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
         

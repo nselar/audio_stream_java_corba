@@ -32,7 +32,7 @@ public class Servidor {
     public static void main(String[] args) throws InvalidName, ServantNotActive, WrongPolicy, org.omg.CosNaming.NamingContextPackage.InvalidName, CannotProceed, NotFound, AdapterInactive {
         
         if(args.length<1){
-            args = new String[]{"-ORBInitialPort","1051","-ORBInitialHost","192.168.0.24"};
+            args = new String[]{"-ORBInitialPort","1050","-ORBInitialHost","localhost"};
         }
         
         // inicializa el ORB
@@ -40,9 +40,8 @@ public class Servidor {
         //Argumentos de servant
 
         List<String> lista = new ArrayList();
-        lista.add("./naruto_1.wav");
-        lista.add("./naruto_1.wav");
-        lista.add("./uptown.wav");
+        lista.add("./el_alfa1.wav");
+        lista.add("./los_aparatos.wav");
 
         // obtener una referencia del POA raiz
         POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
