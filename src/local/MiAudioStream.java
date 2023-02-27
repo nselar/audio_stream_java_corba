@@ -61,7 +61,7 @@ public class MiAudioStream {
         for (int i = 0; i < index_audio; i++) {
             File fl = null;
             fl = new File(listaUbicaciones.get(i));
-            duracion += (int) fl.length() / pedazo;
+            duracion += 1;
         }
         duracion += offset / pedazo;
         return duracion;
@@ -81,7 +81,8 @@ public class MiAudioStream {
         for (String ubicacion : listaUbicaciones) {
             File fl = null;
             fl = new File(ubicacion);
-            duracionTotal += (int) fl.length();
+            //Calculo de duracion de la cancion en segundos a partir del tamaño del archivo
+            duracionTotal += (int) (fl.length() / pedazo); 
         }
         return duracionTotal;
     }

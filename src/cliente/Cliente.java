@@ -38,8 +38,8 @@ public class Cliente {
             @Override
             public byte[] obtenerAudio() {
                 //Show the actual time of the audio fixed on the terminal
-                System.out.println("Tiempo: " + counter.obtenerDuracion());
-                System.out.println("Tiempo total del audio: " + counter.obtenerDuracionTotal());
+                System.out.println("Tiempo: " + counter.obtenerDuracion() + " s");
+                System.out.println("Tiempo total del audio: " + counter.obtenerDuracionTotal() + " segundos");
                 //Mostrar el nombre del audio
                 System.out.println("Nombre: " + counter.obtenerNombre());
                 return counter.obtenerAudio();
