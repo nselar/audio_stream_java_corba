@@ -1,10 +1,12 @@
 # CORBA Audio Streaming
 
-A simple audio streaming system using Java and CORBA.  
+A simple audio streaming system using Java and CORBA.
 
 ### Prerequisites
 
 Install the JDK 8u351 or earlier to build the files of this project and download an audio file, it is recommended that the audio be .wav extension.
+See https://www.oracle.com/es/java/technologies/javase/javase8u211-later-archive-downloads.html for download this JDK, and the how-to guide of IDL compilation on Oracle's website https://docs.oracle.com/javase/7/docs/technotes/guides/idl/jidlExample.html.
+Feel free to make a pull request, but tell me what and why are you going to change. Thanks in advance
 
 ### Setup
 
