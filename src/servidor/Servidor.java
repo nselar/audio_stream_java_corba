@@ -39,9 +39,11 @@ public class Servidor {
         ORB orb = ORB.init(args, null);
         //Argumentos de servant
 
-        List<String> lista = new ArrayList();
-        lista.add("./el_alfa1.wav");
-        lista.add("./los_aparatos.wav");
+        //ask for the name of the audio
+        List <String> lista = new ArrayList<>();
+        System.out.println("Escribe el nombre/ruta del audio");
+        String nombre = System.console().readLine();
+        lista.add(nombre);
 
         // obtener una referencia del POA raiz
         POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));

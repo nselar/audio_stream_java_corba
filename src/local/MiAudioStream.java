@@ -24,7 +24,7 @@ import static local.Main.estado;
  */
 public class MiAudioStream {
 
-    int pedazo = 100000;
+    int pedazo = 192000; //tamaño de cada pedazo de audio en bytes
     List<String> listaUbicaciones;
     String actual;
     byte[] flujoBytes;
@@ -81,7 +81,7 @@ public class MiAudioStream {
         for (String ubicacion : listaUbicaciones) {
             File fl = null;
             fl = new File(ubicacion);
-            duracionTotal += (int) fl.length() / pedazo;
+            duracionTotal += (int) fl.length();
         }
         return duracionTotal;
     }
@@ -118,7 +118,7 @@ public class MiAudioStream {
     public static Integer reproducir(MiAudioStream audiostream) {
 
 //        InputStream is = null;
-        float rate = 44100.0f;
+        float rate = 48000.0f;
         AudioFormat format = new AudioFormat(rate, 16, 2, true, false);
 //        byte[] receiveData = new byte[4096];
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
