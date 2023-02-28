@@ -10,7 +10,7 @@ Ver https://www.oracle.com/es/java/technologies/javase/javase8u211-later-archive
 ### Configuración
 
 1. Ejecuta en un nuevo terminal `orbd -ORBInitialPort 1050`.
-2. Desplázate al director que contiene `audio_stream.idl` y ejecuta `idlj -fall audio_stream.idl`.
+2. Desplázate al directorio que contiene `audio_stream.idl` y ejecuta `idlj -fall audio_stream.idl`.
 3. Compila todos los .java que hay en el directorio src, ejemplo: `javac local/*.java servidor/*.java cliente/*.java sop_corba/*.java -Xlint`.
 4. Ejecuta en un nuevo terminal el paquete `Servidor/servidor` en VS Code con los arugmentos `-ORBInitialPort 1050 -ORBInitialHost localhost` ejemplo: `java servidor/Servidor -ORBInitialHost localhost -ORBInitialPort 1050`.
 5. Escribe la ruta de audio con la extensión, ejemplo: `./sound.wav`.
