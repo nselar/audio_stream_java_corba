@@ -39,7 +39,7 @@ public class Servidor {
         ORB orb = ORB.init(args, null);
         //Argumentos de servant
 
-        //ask for the name of the audio
+        //Pedir la ruta del audio
         List <String> lista = new ArrayList<>();
         System.out.println("Escribe el nombre/ruta del audio");
         String nombre = System.console().readLine();
